@@ -2,7 +2,7 @@ pragma solidity >=0.7.0 <0.8.0;
 // SPDX-License-Identifier: MIT
 contract carRental{
 struct Car{
-    string id;
+    uint id;
     string model;
     uint mileage;
     uint avail; // 0:waiting 1:running 2:finished
@@ -39,7 +39,7 @@ struct Renter{
     
 function createOwner  (string memory _name)
 public
-alreadyPresent
+alreadyPresentOwner
     //check if owner alread present
     //check if renter present
 returns (bool success)
@@ -56,12 +56,12 @@ returns (bool success)
 }
 function createRenter(string memory _aadhar)
 public
-alreadyPresent
+alreadyPresentRenter
 returns (bool success)
 {
     countRenter++;
     rentersMap[msg.sender].aadhar=_aadhar;
-    rentersMap[msg.sender].balance=0;
+    rentersMap[msg.sender].balance=10000;
     rentersMap[msg.sender].exists=true;
     return true;
 }
@@ -87,8 +87,10 @@ carCheck(_ownerId, _locid, _locIndex)
     // check sender loc and owner id to be same as sent from request
 returns (bool success)
 {
+    locations[ownersMap[msg.sender].id][_locIndex].carCount++;
+    uint ccount=locations[ownersMap[msg.sender].id][_locIndex].carCount;
     cars[(locations[ownersMap[msg.sender].id][_locIndex]).locid].push(Car({
-        id:_id,
+        id:_locid*10+ccount,
         model:_model,
         mileage:_mileage,
         avail:0,
@@ -98,10 +100,33 @@ returns (bool success)
     return true;
 }
 
-// addJourney()
-// completeJourney()
-modifier alreadyPresent{
-    assert(ownersMap[msg.sender].exists==true||rentersMap[msg.sender].exists==true);
+function addJourney(address _ownerAddress, uint _ownerId, uint _locIndex, uint _carIndex, uint _dst)
+public
+alreadRunning( _ownerAddress,_ownerId, _locIndex, _carIndex)
+returns (bool success)
+{
+    cars[(locations[_ownerId][_locIndex].locid)][_carIndex].startBlock=block.number;
+    cars[locations[_ownerId][_locIndex].locid][_carIndex].avail=1;
+    cars[locations[_ownerId][_locIndex].locid][_carIndex].ttf=_dst/10;
+}
+function completeJourney( address _ownerAddress,uint _ownerId, uint _locIndex, uint _carIndex)  // Sent by Renter
+public
+checkJourneyComplete(_ownerAddress,_ownerId, _locIndex, _carIndex)
+{
+    cars[locations[_ownerId][_locIndex].locid][_carIndex].avail=2;  
+}
+function returnCar(uint _ownerId, uint _locIndex, uint _carIndex)
+public
+checkReturn( _ownerId,  _locIndex, _carIndex)
+{
+    cars[locations[ownersMap[msg.sender].id][_locIndex].locid][_carIndex].avail=0;
+}
+modifier alreadyPresentOwner{
+    assert(ownersMap[msg.sender].exists!=true);
+    _;
+}
+modifier alreadyPresentRenter{
+    assert(rentersMap[msg.sender].exists!=true);
     _;
 }
 modifier carCheck(uint _ownerId, uint _locid, uint _locIndex){
@@ -111,6 +136,29 @@ modifier carCheck(uint _ownerId, uint _locid, uint _locIndex){
 }
 modifier checkLocation(int _x, int _y, uint _ownerId){
     assert(ownersMap[msg.sender].id==_ownerId);
+    _;
+}
+modifier alreadRunning( address _ownerAddress,uint _ownerId, uint _locIndex, uint _carIndex){
+    assert(ownersMap[_ownerAddress].id==_ownerId);
+    assert(ownersMap[_ownerAddress].locCount>=_locIndex);
+    assert(locations[ownersMap[_ownerAddress].id][_locIndex].carCount>=_carIndex);
+    assert(rentersMap[msg.sender].exists==true);
+    assert(cars[locations[ownersMap[_ownerAddress].id][_locIndex].locid][_carIndex].avail==0);
+    _;
+}
+modifier checkJourneyComplete( address _ownerAddress,uint _ownerId, uint _locIndex, uint _carIndex){
+    assert(ownersMap[_ownerAddress].id==_ownerId);
+    assert(ownersMap[_ownerAddress].locCount>=_locIndex);
+    assert(locations[ownersMap[_ownerAddress].id][_locIndex].carCount>=_carIndex);
+    assert(rentersMap[msg.sender].exists==true);
+    assert(cars[locations[ownersMap[_ownerAddress].id][_locIndex].locid][_carIndex].avail==1);
+    _;
+}
+modifier checkReturn(uint _ownerId, uint _locIndex, uint _carIndex){
+    uint stBlock=cars[locations[ownersMap[msg.sender].id][_locIndex].locid][_carIndex].startBlock;
+    uint timeTF=cars[locations[ownersMap[msg.sender].id][_locIndex].locid][_carIndex].ttf;
+    assert(cars[locations[ownersMap[msg.sender].id][_locIndex].locid][_carIndex].avail==2);
+    assert(stBlock+timeTF<=block.number);
     _;
 }
 }
