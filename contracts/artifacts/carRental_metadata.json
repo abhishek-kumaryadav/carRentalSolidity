@@ -1,0 +1,378 @@
+{
+	"compiler": {
+		"version": "0.7.4+commit.3f05b770"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_id",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_model",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_mileage",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_locIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "addCars",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "success",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_ownerId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_locIndex",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_carIndex",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_dst",
+						"type": "uint256"
+					}
+				],
+				"name": "addJourney",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "success",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "int256",
+						"name": "_x",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "_y",
+						"type": "int256"
+					}
+				],
+				"name": "addLocations",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "success",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "cars",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "model",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "mileage",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "avail",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "startBlock",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "ttf",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_ownerId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_locIndex",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_carIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "completeJourney",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					}
+				],
+				"name": "createOwner",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "success",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_aadhar",
+						"type": "string"
+					}
+				],
+				"name": "createRenter",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "success",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "locations",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "locid",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "carCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "x",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "y",
+						"type": "int256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "ownersMap",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "locCount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "earnings",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "exists",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "rentersMap",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "aadhar",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "exists",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_ownerId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_locIndex",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_carIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "returnCar",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/CarRental.sol": "carRental"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/CarRental.sol": {
+			"keccak256": "0x355a34c5224a3b9010eb1804e70b5c1accfb70a1cedc82aa697b66943efb1af9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3f692aa29ea0e70a2e2333d05dd412dd34d38af6ff43a4d35988e3540026107d",
+				"dweb:/ipfs/QmYk8qmxGWagvYyK3BgUAXP5AFUXjXMz5q9QBcGhKB76YM"
+			]
+		}
+	},
+	"version": 1
+}
